@@ -52,3 +52,18 @@
   name = "Music Theory"
   pageRef = "music-theory"
   weight = 50
+
+[[footer]]
+  name = "About"
+  pageRef = "about"
+  weight = 60
+
+[[footer]]
+  name = "Contact"
+  pageRef = "contact"
+  weight = 70
+
+[[footer]]
+  name = "Editorial Policy"
+  pageRef = "editorial-policy"
+  weight = 80

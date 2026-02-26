@@ -9,10 +9,13 @@ title = "Sax & The City"
   isoCode = "en"
   rtl = false
   dateFormat = "January 2, 2006"
-  description = "Your guide to finding your voice on the saxophone. Tips, tutorials, and inspiration for beginners and intermediate players."
+  description = "Your guide to finding your voice on the saxophone. Tips, tutorials, and inspiration for beginners and intermediate players across jazz, pop, funk, classical, and R&B."
   copyright = "Sax & The City"
 
 [params.author]
   name = "Sax & The City"
-  headline = "Your guide to finding your voice on the saxophone"
-  bio = "Sax & The City is your friendly guide to learning and enjoying the saxophone. Whether you are just starting out or looking to level up your playing, we cover everything from practice tips to improvisation, gear reviews to music theory -- across jazz, pop, funk, classical, and R&B."
+  headline = "Practical saxophone lessons for beginners and intermediate players"
+  bio = "Sax & The City is a saxophone learning resource covering technique, practice routines, improvisation, gear, and music theory. Our articles reference real musicians, real recordings, and proven teaching methods to help you find your voice on the saxophone. Content is AI-assisted and editorially reviewed for accuracy."
+  links = [
+    { email = "mailto:support@nichtagentur.at" },
+  ]

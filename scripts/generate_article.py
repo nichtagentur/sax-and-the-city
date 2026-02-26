@@ -3,12 +3,16 @@
 Sax & The City -- AI Article Generator
 Generates SEO-optimized saxophone articles with AI-generated images.
 Uses Claude Sonnet for text and Imagen for featured images.
+Sends email notification after each article is published.
 """
 
 import json
 import os
 import sys
 import re
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from pathlib import Path
 from io import BytesIO
@@ -18,6 +22,17 @@ SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
 CONTENT_DIR = PROJECT_DIR / "content"
 PLAN_FILE = SCRIPT_DIR / "content_plan.json"
+
+# Site URL
+SITE_URL = "https://nichtagentur.github.io/sax-and-the-city"
+
+# Email settings
+NOTIFY_EMAIL = "tanja.wassermair@geogebra.org"
+SMTP_HOST = "mail.easyname.eu"
+SMTP_PORT = 587
+SMTP_USER = os.environ.get("SMTP_USER", "i-am-a-user@nichtagentur.at")
+SMTP_PASS = os.environ.get("SMTP_PASS", "")
+FROM_EMAIL = "i-am-a-user@nichtagentur.at"
 
 
 def load_plan():
@@ -38,6 +53,55 @@ def get_next_topic(plan):
     return None
 
 
+def send_notification_email(topic, article_text):
+    """Send email notification about a newly published article."""
+    password = SMTP_PASS or os.environ.get("SMTP_PASS", "")
+    if not password:
+        print("  WARNING: No SMTP password set, skipping email notification")
+        return False
+
+    article_url = f"{SITE_URL}/{topic['section']}/{topic['slug']}/"
+    # Get first ~300 chars as preview
+    preview = article_text[:300].strip()
+    if len(article_text) > 300:
+        preview += "..."
+
+    subject = f"New article published: {topic['title']}"
+
+    body = f"""Hi Tanja,
+
+A new article has been published on Sax & The City!
+
+Title: {topic['title']}
+Category: {topic['section'].replace('-', ' ').title()}
+Summary: {topic['summary']}
+
+Preview:
+{preview}
+
+Read the full article: {article_url}
+
+-- Sax & The City (automated notification)
+"""
+
+    msg = MIMEMultipart()
+    msg["From"] = FROM_EMAIL
+    msg["To"] = NOTIFY_EMAIL
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USER, password)
+            server.sendmail(FROM_EMAIL, NOTIFY_EMAIL, msg.as_string())
+        print(f"  Email sent to {NOTIFY_EMAIL}")
+        return True
+    except Exception as e:
+        print(f"  WARNING: Failed to send email: {e}")
+        return False
+
+
 def generate_article_text(topic):
     """Generate article text using Claude Sonnet."""
     import anthropic
@@ -49,37 +113,49 @@ def generate_article_text(topic):
 
     client = anthropic.Anthropic(api_key=api_key)
 
-    prompt = f"""Write a comprehensive, SEO-optimized blog article for "Sax & The City", a saxophone blog for beginners and intermediate players.
+    prompt = f"""You are an experienced saxophone teacher with 20+ years of playing and teaching experience. You run "Sax & The City", a blog where you share practical knowledge with beginners and intermediate players.
 
-ARTICLE DETAILS:
+Write an article based on these details:
+
+ARTICLE:
 - Title: {topic['title']}
 - Category: {topic['section'].replace('-', ' ').title()}
 - Summary: {topic['summary']}
 - Target tags: {', '.join(topic['tags'])}
 
-WRITING GUIDELINES:
-- Length: 1,500-2,500 words
-- Tone: Friendly, encouraging, like a supportive teacher. Warm and motivating. "You can do this!"
-- Audience: Beginners and intermediate saxophone players across all styles (jazz, pop, funk, classical, R&B)
-- Reference real musicians, real gear, real songs where relevant
-- Use clear headings (H2 and H3) to structure the content
-- Include practical, actionable advice
-- End with a FAQ section (3-5 questions) using this exact format:
+VOICE & TONE:
+- Write as a real teacher sharing personal experience. Use "I" and "you" naturally.
+- Share specific anecdotes: "When I was learning altissimo, my teacher Larry Teal told me..." or "I spent three months struggling with this until..."
+- Be warm and encouraging, but also honest about challenges.
+- Vary your sentence structure. Mix short punchy sentences with longer explanatory ones.
+- NO generic AI patterns: never write "Here are 5 tips...", "In conclusion...", "Let's dive in...", "Whether you're a beginner or advanced..."
 
-## Frequently Asked Questions
+CONTENT REQUIREMENTS (E-E-A-T signals for Google quality):
 
-### Question here?
+1. REAL REFERENCES: Name specific real musicians, recordings, gear models, and method books. Examples:
+   - Musicians: Charlie Parker, Cannonball Adderley, Michael Brecker, Kenny Garrett, Branford Marsalis
+   - Recordings: "Kind of Blue", "Giant Steps", specific tracks
+   - Gear: Yamaha YAS-280, Selmer Mark VI, Vandoren V16 mouthpiece, Rico Royal #2.5 reeds
+   - Books: "The Art of Saxophone Playing" by Larry Teal, "Top Tones for the Saxophone" by Sigurd Rascher
 
-Answer here.
+2. FROM THE PRACTICE ROOM: Include a section called "## From the Practice Room" with 2-3 specific, unique practice tips that go beyond generic advice. Things a real teacher would share in a lesson.
 
-IMPORTANT FORMAT RULES:
+3. WATCH OUT FOR: Include a section called "## Common Mistakes to Avoid" with 3-4 specific pitfalls and how to fix them.
+
+4. SOURCES: End with a section called "## Further Reading & Sources" listing 3-5 real, authoritative resources (books, educational websites, masterclass videos). Format as a simple list.
+
+5. FAQ: Include "## Frequently Asked Questions" with 3 questions using ### for each question.
+
+LENGTH: 800-1,200 words. Be concise and scannable. Every paragraph should earn its place.
+
+FORMAT RULES:
 - Return ONLY the article body in Markdown (no title -- that goes in front matter)
 - Start directly with an engaging introduction paragraph
 - Do NOT include the title as an H1 heading
 - Use ## for main sections and ### for subsections
-- Include a "Key Takeaways" or "Quick Summary" box near the top using a blockquote (>)
+- Include a brief "Key Takeaway" blockquote (>) near the top -- one or two sentences max
 - Do NOT use emoji
-- Write naturally, avoid keyword stuffing
+- No keyword stuffing
 """
 
     message = client.messages.create(
@@ -231,6 +307,10 @@ def main():
 
         # Create Hugo page bundle
         create_hugo_page(topic, article_text, image)
+
+        # Send email notification
+        print("  Sending email notification...")
+        send_notification_email(topic, article_text)
 
         # Mark as done
         topic["status"] = "done"
