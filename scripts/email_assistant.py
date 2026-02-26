@@ -57,6 +57,9 @@ ALLOWED_SENDER = "tanja.wassermair@geogebra.org"
 # Polling interval
 POLL_INTERVAL = 30  # seconds
 
+# Tracks which emails we already replied to (survives crashes)
+PROCESSED_FILE = LOG_DIR / "processed_emails.json"
+
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
@@ -69,6 +72,20 @@ logging.basicConfig(
 log = logging.getLogger("email_assistant")
 
 
+def load_processed():
+    """Load set of Message-IDs we already replied to."""
+    if PROCESSED_FILE.exists():
+        return set(json.loads(PROCESSED_FILE.read_text()))
+    return set()
+
+
+def save_processed(processed):
+    """Save set of processed Message-IDs."""
+    # Keep only last 500 to avoid unbounded growth
+    recent = sorted(processed)[-500:]
+    PROCESSED_FILE.write_text(json.dumps(recent, indent=2))
+
+
 def connect_imap():
     """Connect to IMAP server and select inbox."""
     mail = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT, timeout=30)
@@ -78,10 +95,13 @@ def connect_imap():
 
 
 def check_for_emails(mail):
-    """Check for unread emails from the allowed sender. Returns list of (uid, subject, body)."""
+    """Check for emails from the allowed sender that we haven't replied to yet.
+    Uses Message-ID tracking so read-but-unprocessed emails are not lost."""
     results = []
+    processed = load_processed()
     try:
-        status, data = mail.search(None, '(UNSEEN FROM "{}")'.format(ALLOWED_SENDER))
+        # Search ALL emails from Tanja (not just unseen)
+        status, data = mail.search(None, '(FROM "{}")'.format(ALLOWED_SENDER))
         if status != "OK" or not data[0]:
             return results
 
@@ -93,6 +113,11 @@ def check_for_emails(mail):
 
             raw_email = msg_data[0][1]
             msg = email.message_from_bytes(raw_email)
+
+            # Check Message-ID -- skip if already processed
+            message_id = msg.get("Message-ID", "").strip()
+            if message_id in processed:
+                continue
 
             # Decode subject
             subject_parts = email.header.decode_header(msg["Subject"] or "")
@@ -122,7 +147,7 @@ def check_for_emails(mail):
             # Mark as seen
             mail.store(eid, "+FLAGS", "\\Seen")
 
-            results.append((eid, subject.strip(), body.strip()))
+            results.append((message_id, subject.strip(), body.strip()))
             log.info(f"Found email: '{subject.strip()}'")
 
     except Exception as e:
@@ -452,9 +477,13 @@ def main():
             if emails:
                 log.info(f"Found {len(emails)} email(s) to process")
 
-            for eid, subject, body in emails:
+            processed = load_processed()
+            for message_id, subject, body in emails:
                 result = process_email(subject, body)
                 send_reply(ALLOWED_SENDER, subject, result)
+                # Only mark as processed AFTER reply is sent
+                processed.add(message_id)
+                save_processed(processed)
 
             try:
                 mail.close()
