@@ -71,7 +71,7 @@ log = logging.getLogger("email_assistant")
 
 def connect_imap():
     """Connect to IMAP server and select inbox."""
-    mail = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT)
+    mail = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT, timeout=30)
     mail.login(EMAIL_USER, EMAIL_PASS)
     mail.select("INBOX")
     return mail
@@ -443,11 +443,14 @@ def main():
     log.info(f"Poll interval: {POLL_INTERVAL}s")
     log.info("=" * 60)
 
+    poll_count = 0
     while True:
         try:
             mail = connect_imap()
-
             emails = check_for_emails(mail)
+
+            if emails:
+                log.info(f"Found {len(emails)} email(s) to process")
 
             for eid, subject, body in emails:
                 result = process_email(subject, body)
@@ -458,6 +461,10 @@ def main():
                 mail.logout()
             except Exception:
                 pass
+
+            poll_count += 1
+            if poll_count % 20 == 0:
+                log.info(f"Heartbeat: {poll_count} polls completed, service healthy")
 
         except Exception as e:
             log.error(f"Connection error: {e}")
