@@ -1,0 +1,54 @@
+[[main]]
+  name = "Getting Started"
+  pageRef = "getting-started"
+  weight = 10
+
+[[main]]
+  name = "Practice Room"
+  pageRef = "practice-room"
+  weight = 20
+
+[[main]]
+  name = "Improvisation"
+  pageRef = "improvisation"
+  weight = 30
+
+[[main]]
+  name = "Gear Guide"
+  pageRef = "gear-guide"
+  weight = 40
+
+[[main]]
+  name = "Music Theory"
+  pageRef = "music-theory"
+  weight = 50
+
+[[main]]
+  name = "Search"
+  pre = "search"
+  weight = 60
+
+[[footer]]
+  name = "Getting Started"
+  pageRef = "getting-started"
+  weight = 10
+
+[[footer]]
+  name = "Practice Room"
+  pageRef = "practice-room"
+  weight = 20
+
+[[footer]]
+  name = "Improvisation"
+  pageRef = "improvisation"
+  weight = 30
+
+[[footer]]
+  name = "Gear Guide"
+  pageRef = "gear-guide"
+  weight = 40
+
+[[footer]]
+  name = "Music Theory"
+  pageRef = "music-theory"
+  weight = 50

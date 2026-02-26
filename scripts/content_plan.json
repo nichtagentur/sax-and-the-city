@@ -1,0 +1,356 @@
+{
+  "topics": [
+    {
+      "slug": "choose-your-first-saxophone",
+      "title": "Choose Your First Saxophone: Alto vs Tenor (and Why It Matters)",
+      "section": "getting-started",
+      "tags": [
+        "beginner",
+        "alto saxophone",
+        "tenor saxophone",
+        "buying guide"
+      ],
+      "image_prompt": "A shiny new alto saxophone and tenor saxophone side by side on a music stand, warm studio lighting, clean background",
+      "summary": "Not sure whether to start with alto or tenor? Here is a clear, friendly comparison to help you pick the right saxophone for your journey.",
+      "status": "done"
+    },
+    {
+      "slug": "embouchure-guide-for-beginners",
+      "title": "Saxophone Embouchure: How to Shape Your Mouth for a Great Sound",
+      "section": "getting-started",
+      "tags": [
+        "beginner",
+        "embouchure",
+        "tone",
+        "fundamentals"
+      ],
+      "image_prompt": "Close-up of a saxophone mouthpiece with reed attached, soft focused background, warm lighting, educational feel",
+      "summary": "Your embouchure is the foundation of your sound. Learn the correct mouth position, common mistakes, and exercises to build a strong embouchure.",
+      "status": "done"
+    },
+    {
+      "slug": "is-saxophone-hard-to-learn",
+      "title": "Is Saxophone Hard to Learn? The Honest Truth for Beginners",
+      "section": "getting-started",
+      "tags": [
+        "beginner",
+        "learning",
+        "motivation",
+        "FAQ"
+      ],
+      "image_prompt": "A person happily playing saxophone in a cozy room, natural light, relaxed atmosphere, encouraging vibe",
+      "summary": "Thinking about learning saxophone? Here is what to really expect, how long it takes, and why it is more achievable than you think.",
+      "status": "done"
+    },
+    {
+      "slug": "your-first-week-with-saxophone",
+      "title": "Your First Week With the Saxophone: A Day-by-Day Guide",
+      "section": "getting-started",
+      "tags": [
+        "beginner",
+        "first steps",
+        "practice plan",
+        "getting started"
+      ],
+      "image_prompt": "An open saxophone case with a new saxophone inside, sheet music nearby, warm inviting lighting, first day of school feeling",
+      "summary": "Just got your saxophone? Follow this friendly day-by-day plan for your first week and you will be playing simple melodies by Sunday.",
+      "status": "done"
+    },
+    {
+      "slug": "reading-sheet-music-for-beginners",
+      "title": "Reading Sheet Music for Saxophone: A Beginner's Guide",
+      "section": "getting-started",
+      "tags": [
+        "beginner",
+        "sheet music",
+        "notation",
+        "reading music"
+      ],
+      "image_prompt": "Sheet music pages spread on a music stand with a saxophone resting nearby, warm lamp lighting, studious atmosphere",
+      "summary": "Sheet music looks intimidating at first, but it is simpler than you think. Learn the basics of reading notes, rhythms, and dynamics for saxophone.",
+      "status": "done"
+    },
+    {
+      "slug": "perfect-30-minute-practice-routine",
+      "title": "The Perfect 30-Minute Saxophone Practice Routine",
+      "section": "practice-room",
+      "tags": [
+        "practice",
+        "routine",
+        "time management",
+        "exercises"
+      ],
+      "image_prompt": "A saxophone on a stand next to a timer showing 30 minutes, practice room setting, warm motivating lighting",
+      "summary": "Short on time? This structured 30-minute routine covers everything you need: warm-up, technique, repertoire, and fun. Make every minute count.",
+      "status": "done"
+    },
+    {
+      "slug": "long-tone-exercises",
+      "title": "Long Tone Exercises: The Secret to a Beautiful Saxophone Sound",
+      "section": "practice-room",
+      "tags": [
+        "practice",
+        "tone",
+        "long tones",
+        "exercises",
+        "sound"
+      ],
+      "image_prompt": "A saxophone player holding a sustained note with visible sound waves artistic effect, moody blue and gold lighting",
+      "summary": "Long tones are the single most important exercise for developing a rich, full saxophone sound. Here are the best long tone exercises and how to do them right.",
+      "status": "done"
+    },
+    {
+      "slug": "how-to-practice-scales",
+      "title": "How to Practice Scales Without Getting Bored",
+      "section": "practice-room",
+      "tags": [
+        "practice",
+        "scales",
+        "exercises",
+        "creativity"
+      ],
+      "image_prompt": "Musical scale notes flowing in a colorful creative pattern, saxophone in background, artistic and fun feeling",
+      "summary": "Scales do not have to be dull. Discover creative ways to practice scales that build technique, ear training, and musicality all at once.",
+      "status": "done"
+    },
+    {
+      "slug": "breaking-through-plateaus",
+      "title": "When Progress Stops: How to Break Through Saxophone Plateaus",
+      "section": "practice-room",
+      "tags": [
+        "practice",
+        "motivation",
+        "plateau",
+        "improvement"
+      ],
+      "image_prompt": "A winding mountain path breaking through clouds to a summit, golden light above, metaphor for musical progress",
+      "summary": "Every saxophonist hits a wall. Learn why plateaus happen and practical strategies to push through and start improving again.",
+      "status": "done"
+    },
+    {
+      "slug": "morning-warm-up-routines",
+      "title": "Morning Warm-Up Routines That Actually Work",
+      "section": "practice-room",
+      "tags": [
+        "practice",
+        "warm-up",
+        "routine",
+        "daily practice"
+      ],
+      "image_prompt": "A saxophone bathed in warm morning sunlight near a window, peaceful sunrise atmosphere, fresh start feeling",
+      "summary": "Start your practice session right with these effective warm-up routines. From 5-minute quick starts to 15-minute deep warm-ups.",
+      "status": "done"
+    },
+    {
+      "slug": "how-to-start-improvising",
+      "title": "Your First Solo: How to Start Improvising on Saxophone",
+      "section": "improvisation",
+      "tags": [
+        "improvisation",
+        "beginner",
+        "first solo",
+        "jazz"
+      ],
+      "image_prompt": "A saxophone player on a small stage with a spotlight, intimate jazz club setting, moment of creative expression",
+      "summary": "Improvising feels scary at first, but everyone starts somewhere. Learn simple, step-by-step techniques to play your very first solo with confidence.",
+      "status": "done"
+    },
+    {
+      "slug": "pentatonic-scale-your-best-friend",
+      "title": "The Pentatonic Scale: Your Best Friend for Saxophone Improvisation",
+      "section": "improvisation",
+      "tags": [
+        "improvisation",
+        "pentatonic",
+        "scales",
+        "technique"
+      ],
+      "image_prompt": "Five glowing musical notes arranged in a star pattern, saxophone silhouette, mystical blue and gold atmosphere",
+      "summary": "The pentatonic scale is the most versatile tool in any improviser's toolkit. Learn all five positions and how to use them over any style of music.",
+      "status": "done"
+    },
+    {
+      "slug": "playing-the-blues",
+      "title": "Playing the Blues on Saxophone: A Complete Guide",
+      "section": "improvisation",
+      "tags": [
+        "improvisation",
+        "blues",
+        "blues scale",
+        "expression"
+      ],
+      "image_prompt": "A saxophone player in a smoky blues bar, deep blue and amber lighting, soulful emotional atmosphere",
+      "summary": "The blues is where soul meets saxophone. Learn the 12-bar blues form, the blues scale, and how to play with feeling and expression.",
+      "status": "pending"
+    },
+    {
+      "slug": "playing-saxophone-by-ear",
+      "title": "How to Play Saxophone by Ear: Train Your Musical Hearing",
+      "section": "improvisation",
+      "tags": [
+        "improvisation",
+        "ear training",
+        "playing by ear",
+        "listening"
+      ],
+      "image_prompt": "A person with closed eyes playing saxophone, musical notes floating around their head, dreamy artistic style",
+      "summary": "Playing by ear is a superpower. Learn practical exercises to develop your musical hearing and start picking up melodies, riffs, and solos from recordings.",
+      "status": "pending"
+    },
+    {
+      "slug": "improvising-over-pop-and-rnb",
+      "title": "Improvising Over Pop and R&B Songs on Saxophone",
+      "section": "improvisation",
+      "tags": [
+        "improvisation",
+        "pop",
+        "R&B",
+        "contemporary"
+      ],
+      "image_prompt": "A saxophone player performing over a colorful modern city skyline at night, vibrant neon lights, contemporary urban feel",
+      "summary": "Jazz is not the only home for saxophone solos. Learn how to improvise beautifully over pop, R&B, and contemporary songs.",
+      "status": "pending"
+    },
+    {
+      "slug": "best-saxophone-mouthpieces",
+      "title": "Best Saxophone Mouthpieces for Every Style and Budget",
+      "section": "gear-guide",
+      "tags": [
+        "gear",
+        "mouthpiece",
+        "buying guide",
+        "tone"
+      ],
+      "image_prompt": "Collection of different saxophone mouthpieces arranged artistically on dark velvet, dramatic product photography lighting",
+      "summary": "Your mouthpiece shapes your sound more than any other piece of gear. Find the perfect mouthpiece for jazz, classical, pop, or rock playing.",
+      "status": "pending"
+    },
+    {
+      "slug": "understanding-reeds",
+      "title": "Understanding Saxophone Reeds: Strength, Brands, and When to Change",
+      "section": "gear-guide",
+      "tags": [
+        "gear",
+        "reeds",
+        "maintenance",
+        "tone"
+      ],
+      "image_prompt": "A box of saxophone reeds with individual reeds spread out, close-up detail shot, warm natural lighting",
+      "summary": "Reeds are the heart of your sound and every player's ongoing quest. Learn about strengths, brands, break-in tips, and when it is time for a new one.",
+      "status": "pending"
+    },
+    {
+      "slug": "saxophone-cleaning-and-maintenance",
+      "title": "Saxophone Cleaning and Maintenance: Keep Your Horn Happy",
+      "section": "gear-guide",
+      "tags": [
+        "gear",
+        "maintenance",
+        "cleaning",
+        "care"
+      ],
+      "image_prompt": "Saxophone cleaning supplies neatly arranged: swab, brush, pad paper, polish cloth, clean organized look",
+      "summary": "A well-maintained saxophone plays better and lasts longer. Learn the daily, weekly, and yearly maintenance routines every player should know.",
+      "status": "pending"
+    },
+    {
+      "slug": "best-beginner-saxophones-under-500",
+      "title": "Best Beginner Saxophones Under $500 in 2026",
+      "section": "gear-guide",
+      "tags": [
+        "gear",
+        "beginner",
+        "buying guide",
+        "budget"
+      ],
+      "image_prompt": "Three different saxophones displayed at different price points, clean white background, buyer guide style photography",
+      "summary": "You do not need to spend thousands to get a great starter saxophone. Here are the best options under $500 that actually play well.",
+      "status": "pending"
+    },
+    {
+      "slug": "electronic-wind-instruments",
+      "title": "Silent Practice: Electronic Wind Instruments for Saxophone Players",
+      "section": "gear-guide",
+      "tags": [
+        "gear",
+        "EWI",
+        "electronic",
+        "silent practice",
+        "technology"
+      ],
+      "image_prompt": "An electronic wind instrument (EWI) with glowing LED lights in a modern home studio, futuristic yet warm atmosphere",
+      "summary": "Live in an apartment? Need to practice late at night? Electronic wind instruments let you play with headphones. Here is what you need to know.",
+      "status": "pending"
+    },
+    {
+      "slug": "major-scales-and-why-they-matter",
+      "title": "Major Scales and Why They Matter for Saxophone Players",
+      "section": "music-theory",
+      "tags": [
+        "theory",
+        "scales",
+        "major scale",
+        "fundamentals"
+      ],
+      "image_prompt": "Musical staff with a major scale ascending, golden notes on dark background, elegant educational illustration",
+      "summary": "Major scales are the foundation of Western music. Learn all 12 major scales on saxophone with fingerings, tips, and musical context.",
+      "status": "pending"
+    },
+    {
+      "slug": "melodic-minor-scale-explained",
+      "title": "The Melodic Minor Scale Explained Simply for Saxophone",
+      "section": "music-theory",
+      "tags": [
+        "theory",
+        "scales",
+        "melodic minor",
+        "jazz theory"
+      ],
+      "image_prompt": "A minor key musical notation with a beautiful dark rose aesthetic, elegant and moody, artistic music theory concept",
+      "summary": "The melodic minor scale unlocks a world of sophisticated sounds. Learn what it is, how to play it, and where to use it in your playing.",
+      "status": "pending"
+    },
+    {
+      "slug": "understanding-chord-symbols",
+      "title": "Understanding Chord Symbols on Lead Sheets: A Sax Player's Guide",
+      "section": "music-theory",
+      "tags": [
+        "theory",
+        "chords",
+        "lead sheets",
+        "reading music"
+      ],
+      "image_prompt": "A jazz lead sheet with chord symbols highlighted, saxophone and pencil nearby, warm study lamp lighting",
+      "summary": "Cmaj7, Dm7, G7 -- what do these symbols mean? Learn to read chord symbols on lead sheets so you can play along with any band.",
+      "status": "pending"
+    },
+    {
+      "slug": "saxophone-transposition-explained",
+      "title": "Why Saxophone Reads Differently: Transposition Explained",
+      "section": "music-theory",
+      "tags": [
+        "theory",
+        "transposition",
+        "Bb instrument",
+        "Eb instrument"
+      ],
+      "image_prompt": "Two sheets of music side by side showing the same melody in different keys, with an alto and tenor saxophone, educational comparison",
+      "summary": "Why does your saxophone play a different note than what is written? Transposition explained clearly, with practical charts and tips.",
+      "status": "pending"
+    },
+    {
+      "slug": "modes-what-they-are",
+      "title": "Modes: What They Are and When to Use Them on Saxophone",
+      "section": "music-theory",
+      "tags": [
+        "theory",
+        "modes",
+        "improvisation",
+        "advanced"
+      ],
+      "image_prompt": "Seven colorful doorways in a row representing the seven modes, each with a different mood and color, creative artistic concept",
+      "summary": "Dorian, Mixolydian, Lydian -- modes sound complicated but they are simpler than you think. Learn what each mode sounds like and when to use it.",
+      "status": "pending"
+    }
+  ]
+}
