@@ -426,6 +426,9 @@ def process_email(subject, body):
 
         return result
 
+    except SystemExit as e:
+        log.error(f"SystemExit caught (likely missing API key): {e}", exc_info=True)
+        return "Sorry, the AI service is temporarily unavailable (API key issue). Please try again later."
     except Exception as e:
         log.error(f"Error processing email: {e}", exc_info=True)
         return f"Sorry, something went wrong while processing your request. Error: {str(e)}\n\nPlease try again or rephrase your request."
