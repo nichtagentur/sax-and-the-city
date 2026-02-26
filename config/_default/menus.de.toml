@@ -1,0 +1,69 @@
+[[main]]
+  name = "Einstieg"
+  pageRef = "getting-started"
+  weight = 10
+
+[[main]]
+  name = "Ueberaum"
+  pageRef = "practice-room"
+  weight = 20
+
+[[main]]
+  name = "Improvisation"
+  pageRef = "improvisation"
+  weight = 30
+
+[[main]]
+  name = "Equipment"
+  pageRef = "gear-guide"
+  weight = 40
+
+[[main]]
+  name = "Musiktheorie"
+  pageRef = "music-theory"
+  weight = 50
+
+[[main]]
+  name = "Suche"
+  pre = "search"
+  weight = 60
+
+[[footer]]
+  name = "Einstieg"
+  pageRef = "getting-started"
+  weight = 10
+
+[[footer]]
+  name = "Ueberaum"
+  pageRef = "practice-room"
+  weight = 20
+
+[[footer]]
+  name = "Improvisation"
+  pageRef = "improvisation"
+  weight = 30
+
+[[footer]]
+  name = "Equipment"
+  pageRef = "gear-guide"
+  weight = 40
+
+[[footer]]
+  name = "Musiktheorie"
+  pageRef = "music-theory"
+  weight = 50
+
+[[footer]]
+  name = "Ueber uns"
+  pageRef = "about"
+  weight = 60
+
+[[footer]]
+  name = "Kontakt"
+  pageRef = "contact"
+  weight = 70
+
+[[footer]]
+  name = "Redaktionelle Richtlinien"
+  pageRef = "editorial-policy"
+  weight = 80

@@ -1,0 +1,21 @@
+disabled = false
+languageCode = "de"
+languageName = "Deutsch"
+weight = 2
+title = "Sax & The City"
+
+[params]
+  displayName = "DE"
+  isoCode = "de"
+  rtl = false
+  dateFormat = "2. January 2006"
+  description = "Dein Wegweiser, um deine Stimme auf dem Saxophon zu finden. Tipps, Anleitungen und Inspiration fuer Anfaenger und fortgeschrittene Spieler -- Jazz, Pop, Funk, Klassik und R&B."
+  copyright = "Sax & The City"
+
+[params.author]
+  name = "Sax & The City"
+  headline = "Praktische Saxophon-Lektionen fuer Anfaenger und Fortgeschrittene"
+  bio = "Sax & The City ist eine Saxophon-Lernressource zu Technik, Ueberoutinen, Improvisation, Equipment und Musiktheorie. Unsere Artikel verweisen auf echte Musiker, echte Aufnahmen und bewaehrte Lehrmethoden, damit du deine Stimme auf dem Saxophon findest. Die Inhalte werden KI-gestuetzt erstellt und redaktionell auf Richtigkeit geprueft."
+  links = [
+    { email = "mailto:support@nichtagentur.at" },
+  ]
