@@ -19,7 +19,7 @@ import logging
 import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 # Paths
@@ -95,13 +95,17 @@ def connect_imap():
 
 
 def check_for_emails(mail):
-    """Check for emails from the allowed sender that we haven't replied to yet.
-    Uses Message-ID tracking so read-but-unprocessed emails are not lost."""
+    """Check for recent emails from the allowed sender that we haven't replied to yet.
+    Uses Message-ID tracking so read-but-unprocessed emails are not lost.
+    Only searches emails from the last 3 days to keep polling fast."""
     results = []
     processed = load_processed()
     try:
-        # Search ALL emails from Tanja (not just unseen)
-        status, data = mail.search(None, '(FROM "{}")'.format(ALLOWED_SENDER))
+        # Search only recent emails from Tanja (last 3 days) to keep it fast
+        since_date = (datetime.now() - timedelta(days=3)).strftime("%d-%b-%Y")
+        status, data = mail.search(
+            None, '(FROM "{}" SINCE {})'.format(ALLOWED_SENDER, since_date)
+        )
         if status != "OK" or not data[0]:
             return results
 
@@ -144,8 +148,8 @@ def check_for_emails(mail):
                     charset = msg.get_content_charset() or "utf-8"
                     body = payload.decode(charset, errors="replace")
 
-            # Mark as seen
-            mail.store(eid, "+FLAGS", "\\Seen")
+            # Do NOT mark as seen -- the Message-ID tracker handles dedup.
+            # Marking seen before processing causes lost emails on crash.
 
             results.append((message_id, subject.strip(), body.strip()))
             log.info(f"Found email: '{subject.strip()}'")
@@ -414,7 +418,7 @@ def git_push(commit_message):
 
 
 def send_reply(to_addr, subject, body):
-    """Send a reply email."""
+    """Send a reply email. Returns True on success, False on failure."""
     msg = MIMEMultipart()
     msg["From"] = EMAIL_DISPLAY
     msg["To"] = to_addr
@@ -422,13 +426,15 @@ def send_reply(to_addr, subject, body):
     msg.attach(MIMEText(body, "plain", "utf-8"))
 
     try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
             server.starttls()
             server.login(EMAIL_USER, EMAIL_PASS)
             server.sendmail(EMAIL_USER, to_addr, msg.as_string())
         log.info(f"Reply sent to {to_addr}")
+        return True
     except Exception as e:
         log.error(f"Failed to send reply: {e}")
+        return False
 
 
 def process_email(subject, body):
@@ -459,6 +465,29 @@ def process_email(subject, body):
         return f"Sorry, something went wrong while processing your request. Error: {str(e)}\n\nPlease try again or rephrase your request."
 
 
+def startup_self_test():
+    """Run quick checks at startup so misconfigurations are obvious in logs."""
+    log.info("--- Startup self-test ---")
+
+    # Test IMAP connection
+    try:
+        mail = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT, timeout=15)
+        mail.login(EMAIL_USER, EMAIL_PASS)
+        mail.logout()
+        log.info("  IMAP login: PASS")
+    except Exception as e:
+        log.error(f"  IMAP login: FAIL -- {e}")
+
+    # Check Claude API key
+    api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("CLAUDE_API_KEY_1")
+    if api_key:
+        log.info("  Claude API key: PASS (key present)")
+    else:
+        log.error("  Claude API key: FAIL (no ANTHROPIC_API_KEY or CLAUDE_API_KEY_1 in environment)")
+
+    log.info("--- Self-test complete ---")
+
+
 def main():
     """Main polling loop."""
     log.info("=" * 60)
@@ -468,22 +497,28 @@ def main():
     log.info(f"Poll interval: {POLL_INTERVAL}s")
     log.info("=" * 60)
 
+    startup_self_test()
+
     poll_count = 0
     while True:
         try:
             mail = connect_imap()
             emails = check_for_emails(mail)
 
-            if emails:
-                log.info(f"Found {len(emails)} email(s) to process")
+            poll_count += 1
+            log.info(f"Poll #{poll_count}: checked, {len(emails)} new")
 
             processed = load_processed()
             for message_id, subject, body in emails:
                 result = process_email(subject, body)
-                send_reply(ALLOWED_SENDER, subject, result)
-                # Only mark as processed AFTER reply is sent
-                processed.add(message_id)
-                save_processed(processed)
+                sent_ok = send_reply(ALLOWED_SENDER, subject, result)
+                if sent_ok:
+                    # Only mark as processed AFTER reply was actually sent
+                    processed.add(message_id)
+                    save_processed(processed)
+                    log.info(f"  Marked as processed: {message_id}")
+                else:
+                    log.warning(f"  Reply failed -- will retry next poll: {message_id}")
 
             try:
                 mail.close()
@@ -491,12 +526,9 @@ def main():
             except Exception:
                 pass
 
-            poll_count += 1
-            if poll_count % 20 == 0:
-                log.info(f"Heartbeat: {poll_count} polls completed, service healthy")
-
         except Exception as e:
-            log.error(f"Connection error: {e}")
+            poll_count += 1
+            log.error(f"Poll #{poll_count}: connection error -- {e}")
 
         time.sleep(POLL_INTERVAL)
 
