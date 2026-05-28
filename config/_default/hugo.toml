@@ -2,7 +2,7 @@ theme = "blowfish"
 baseURL = "https://nichtagentur.github.io/sax-and-the-city/"
 defaultContentLanguage = "en"
 
-enableRobotsTXT = true
+enableRobotsTXT = false
 summaryLength = 30
 
 buildDrafts = false
